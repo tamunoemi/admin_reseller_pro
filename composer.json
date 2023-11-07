@@ -1,0 +1,38 @@
+{
+    "name": "teckipro/admin",
+    "description": "CMS",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Teckipro\\Admin\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Teckipro\\Admin\\Providers\\TeckiproAdminServiceProvider",
+                "Teckipro\\Admin\\Providers\\TeckiproAdminBladeServiceProvider"
+            ],
+            "aliases": {}
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Teckipro\\Admin\\Tests\\": "tests"
+        }
+    },
+    "authors": [
+        {
+            "name": "Robert Emi",
+            "email": "rtamunoemi@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "config": {
+        "sort-packages": true
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "9.6.x-dev"
+    }
+}
