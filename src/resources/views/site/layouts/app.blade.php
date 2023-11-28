@@ -17,7 +17,7 @@
     <meta name="author" content="@yield('meta_author', 'Robert Tamunoemi')">
     @yield('meta')
 
-
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
     <!-- ===============================================-->
     <!--    Favicons-->

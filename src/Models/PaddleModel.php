@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PaddleModel extends Model
 {
     use HasFactory;
-    protected $table='subscriptions'; //very important
+    protected $table='paddle_subscriptions'; //very important
     public $timestamps = false; //very important
 }
+

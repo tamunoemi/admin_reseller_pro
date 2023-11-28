@@ -17,6 +17,9 @@
     {{-- Boostrap icon: https://icons.getbootstrap.com/?q=uploa --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
     <style>
+        [x-cloak] { display: none !important; }
+    </style>
+    <style>
         .bi {
             flex: 0 0 56px;
             font-size: 1.09375rem;

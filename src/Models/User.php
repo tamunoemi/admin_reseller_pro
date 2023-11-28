@@ -26,7 +26,7 @@ use Laragear\TwoFactor\Contracts\TwoFactorAuthenticatable;
 
 
 use Laravel\Cashier\Billable as StripeBillable;
-use Laravel\Paddle\Billable as PaddleBillable;
+//use Laravel\Paddle\Billable as PaddleBillable;
 
 //Laraplan packages
 use Tamunoemi\Laraplans\Contracts\PlanSubscriberInterface;
@@ -53,7 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail,TwoFactorAuthentic
 
 
 
-    use StripeBillable,PaddleBillable, PlanSubscriber {
+    use StripeBillable, PlanSubscriber {
 
         StripeBillable::newSubscription as newStripeSubscription;
         StripeBillable::subscriptions as stripeSubscriptions;
@@ -67,11 +67,12 @@ class User extends Authenticatable implements MustVerifyEmail,TwoFactorAuthentic
         StripeBillable::charge as stripeCharge;
         StripeBillable::refund as stripeRefund;
 
-        PlanSubscriber::newSubscription insteadof PaddleBillable,StripeBillable;
-        PlanSubscriber::subscriptions insteadof StripeBillable,PaddleBillable;
-        PlanSubscriber::subscription insteadof StripeBillable,PaddleBillable;
-        PlanSubscriber::subscribed insteadof StripeBillable,PaddleBillable;
+        PlanSubscriber::newSubscription insteadof StripeBillable;
+        PlanSubscriber::subscriptions insteadof StripeBillable;
+        PlanSubscriber::subscription insteadof StripeBillable;
+        PlanSubscriber::subscribed insteadof StripeBillable;
 
+        /*
         PaddleBillable::newSubscription as  newPaddleSubscription;
         PaddleBillable::subscriptions as paddleSubscriptions;
         PaddleBillable::subscription as  paddleSubscription;
@@ -84,6 +85,7 @@ class User extends Authenticatable implements MustVerifyEmail,TwoFactorAuthentic
         PaddleBillable::trialEndsAt insteadof StripeBillable;
         PaddleBillable::charge insteadof StripeBillable;
         PaddleBillable::refund insteadof StripeBillable;
+        */
 
 
     }

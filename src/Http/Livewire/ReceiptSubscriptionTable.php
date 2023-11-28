@@ -9,8 +9,10 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\MultiSelectFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\DateFilter;
+use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 
 use Teckipro\Admin\Models\ReceiptModel;
+use Teckipro\Admin\Services\PackageService;
 
 class ReceiptSubscriptionTable extends DataTableComponent
 {
@@ -22,10 +24,11 @@ class ReceiptSubscriptionTable extends DataTableComponent
     public string $defaultSortDirection = 'desc';
 
 
-
     public array $sortNames = [
         'billable_id' => 'billable_id',
     ];
+
+
 
 
 
@@ -42,11 +45,20 @@ class ReceiptSubscriptionTable extends DataTableComponent
 
     public function columns(): array
     {
+        $packageservice = new PackageService();
         return [
-            Column::make('User','billable_id')->searchable()->sortable(),
+            Column::make('User','billable_id')
+            ->format(
+                fn($value, $row, Column $column) => $packageservice->getBillableUserName($row->billable_id)
+            )
+            ->searchable()->sortable(),
 
             Column::make('Paddle Id','paddle_subscription_id')->searchable()->sortable(),
-            Column::make('Receipt Url','receipt_url')->searchable()->sortable(),
+
+            LinkColumn::make('Action')
+            ->title(fn($row) => 'View Receipt')
+            ->location(fn($row) => url($row->receipt_url))->searchable()->sortable(),
+
             Column::make('Paid At','paid_at')->searchable()->sortable(),
 
             Column::make('Order Id','order_id')->searchable()->sortable(),
@@ -66,11 +78,6 @@ class ReceiptSubscriptionTable extends DataTableComponent
         return ReceiptModel::query();
     }
 
-
-    public function rowView(): string
-    {
-         return 'teckiproadmin::livewire.tablerows.receipt_subscription_table';
-    }
 
 
 }

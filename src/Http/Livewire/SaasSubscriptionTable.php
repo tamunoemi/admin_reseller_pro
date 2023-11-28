@@ -11,6 +11,7 @@ use Rappasoft\LaravelLivewireTables\Views\Filters\MultiSelectFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\DateFilter;
 
 use Teckipro\Admin\Models\PaddleModel;
+use Teckipro\Admin\Services\PackageService;
 
 class SaasSubscriptionTable extends DataTableComponent
 {
@@ -18,7 +19,8 @@ class SaasSubscriptionTable extends DataTableComponent
     protected $model = PaddleModel::class;
     public bool $singleColumnSorting = true;
 
-  
+
+
     public string $defaultSortDirection = 'desc';
 
 
@@ -42,8 +44,14 @@ class SaasSubscriptionTable extends DataTableComponent
 
     public function columns(): array
     {
+        $packageservice = new PackageService();
+
         return [
-            Column::make('User','billable_id')->searchable()->sortable(),
+            Column::make('User','billable_id')
+            ->format(
+                fn($value, $row, Column $column) => $packageservice->getBillableUserName($row->billable_id)
+            )
+            ->searchable()->sortable(),
 
 
             Column::make('Paddle Plan','paddle_plan')->searchable()->sortable(),
@@ -66,11 +74,6 @@ class SaasSubscriptionTable extends DataTableComponent
         return PaddleModel::query();
     }
 
-
-    public function rowView(): string
-    {
-         return 'teckiproadmin::livewire.tablerows.sass_subscription_table';
-    }
 
 
 }
