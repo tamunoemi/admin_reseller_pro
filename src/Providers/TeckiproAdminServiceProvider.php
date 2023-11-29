@@ -17,14 +17,14 @@ class TeckiproAdminServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-        $this->loadRoutesFrom(__DIR__.'/../routes/auth.php');
+        $this->loadRoutesFrom(__DIR__.'/../Routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/../Routes/auth.php');
 
-        $this->loadViewsFrom(__DIR__.'/../resources/Views', 'teckiproadmin');
+        $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'teckiproadmin');
 
         $this->loadMigrationsFrom(__DIR__.'/../Database/');
 
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'teckiproadmin');
+        $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'teckiproadmin');
 
         //Front end site assets
         $this->publishes([
