@@ -13,7 +13,7 @@ use Teckipro\Admin\Services\RoleService;
 use Teckipro\Admin\Services\UserService;
 
 use Teckipro\Admin\Services\PackageService;
-use Teckipro\Admin\Domains\Plans\Http\Controllers\PlanController
+use Teckipro\Admin\Domains\Plans\Http\Controllers\PlanController;
 use Teckipro\Admin\Http\Requests\UpdatePackageRequest;
 
 use Teckipro\Admin\Models\LaunchSubscriptionModel as LaunchModel;

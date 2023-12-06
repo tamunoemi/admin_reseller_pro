@@ -26,11 +26,13 @@
                  </div>
              @endif
 
+             <x-teckiproadmin::backend.form-group-text type="hidden" value="{{ old('name') ?? $plan->name }}" name="name"  ></x-teckiproadmin::backend.form-group-text>
+
 
             <div class="row">
                 <div class="col-md-4 col-xs-12">
 
-                    <x-teckiproadmin::backend.form-group-text value="{{ old('name') ?? $plan->name }}" name="name" id="name" label="Plan Name *" readonly></x-teckiproadmin::backend.form-group-text>
+                    <x-teckiproadmin::backend.form-group-text value="{{ old('name_alias') ?? $plan->name_alias }}" name="name_alias"  label="Plan Name  Alias*" readonly></x-teckiproadmin::backend.form-group-text>
                 </div>
 
                 <div class="col-md-4 col-xs-12">

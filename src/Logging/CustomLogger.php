@@ -13,7 +13,7 @@ class CustomLogger
     public function __invoke(array $config): Logger
     {
         return new Logger(
-            env('APP_NAME'),
+            config('my_config.app_name'),
             [
                 new CustomLoggerHandler(),
             ]

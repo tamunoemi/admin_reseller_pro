@@ -1,0 +1,19 @@
+alert_id	7658439
+alert_name	subscription_created
+checkout_id	1831956-chrebda4d8128af-c9dd42b6aa
+currency	USD
+custom_data	no value
+email	admin@admin.com
+event_time	2023-12-01 08:25:07
+linked_subscriptions	no value
+marketing_consent	0
+next_bill_date	2024-01-01
+p_signature	aOOO2XnafAAw4m8HvAQisaaVN/us5AmC/e+3eZerZ2BtRIBjaBChZr7kCi3bwZxdyOPfiC1lPe6L0JVwf4t7ruYFVO2LSMgQ3ov56R1dm17y1NAMDvD3ZSrtlTV4rZg1AzIqW7VQIPtGvRQVMBKzdvQfsr2GVsB6F5RGv+B0YGHvnAPrxW3tr3Vtxebksv20Tu7VCnWFm1RRvsDP6vi8wSAiMvo5ig7JZ9LPiAlgL85cCdwkG5vEOD8pU9lfSAMvJmv3IbpCVt28osBmVcY/JFuK8L5xHsBQ5gSWqeDsGZjhLBFx9U2t6IuiiEhbILs2ZqXUGmY4Ai44awNbKju8ouGHuhCmvhbnAyuImowl7mqRcsbNrSzfrHyi7TdIK624JFKJHtwUy121xyc0vGmggO7L+HsOV0xKBMHPTBYk/O//ziScin7tzeXqKhCBx8myo0O0+1XeD//b7lXNAvhZt9j7c54i6qzBrKEPxEJePIAqN2E4FfjUpBSZq69Ggker9at8e0JkRCncJCBbCfjjGdInoUvC8oha0XjBRMJIVVe2KiScLutFNm5nXo+7PuGgARCne1LHTeQKSFrjX6ecl8WQhFTpjG7WWq7knlLw3iDzkLvZZRwGCVDB7wtxc53WbMp2KXu+FVL5pkY+UJytMKx1cYhFdnBru03XpJFiJMc=
+passthrough	{"appname":"TeckiproBackend","domain":null,"subscription_name":"default","billable_id":1,"billable_type":"Teckipro\\Admin\\Models\\User"}
+quantity	1
+source	localhost:8031 / localhost:8031
+status	active
+subscription_id	618468
+subscription_plan_id	44978
+unit_price	67.00
+user_id	21526

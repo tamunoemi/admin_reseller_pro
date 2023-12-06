@@ -3,6 +3,9 @@
 namespace Teckipro\Admin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class AddPlanFeaturesRequest extends FormRequest
 {
@@ -31,9 +34,16 @@ class AddPlanFeaturesRequest extends FormRequest
     public function rules()
     {
         return [
-         'code'=>'required|unique:plan_features|max:255',
-         'value'=>'nullable',
-         'id'=>'required'
+         'id'=>'required',
+         /**
+          * Reject if the code already exists for the plan_id 
+          */
+         'code'=>[
+             'required',
+             'max:255'
+             ],
+         'value'=>'nullable'
+        
         ];
     }
 
@@ -47,7 +57,7 @@ public function messages(): array
 {
     return [
         'code.required' => 'Feature cannot be empty.',
-        'code.unique' => 'This feature already exists. Duplicate not allowed.',
+        //'code.unique' => 'This feature already exists. Duplicate not allowed.',
     ];
 }
 

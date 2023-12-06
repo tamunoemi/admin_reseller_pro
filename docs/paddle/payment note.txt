@@ -1,0 +1,17 @@
+
+Paddle provides two options of payment
+
+(1) Subscription plans with event name subscription_created
+(2) Regular payment that is not a subscription with event name 
+
+Note:
+Cashier paddle does not manage the regular payment option.
+It does not saved entry to the paddle_subscription database table simply 
+because it is not a subscription.
+
+Basically, it is a one time off payment.
+
+Thus it has to be manually registered and handled when offered and saved 
+just like launch one time payments (jvzoo, warrior e.t.c)
+
+The data from this payment is saved in the one_off_payment_logs database table

@@ -32,6 +32,7 @@ class Package extends Model
      */
     protected $fillable = [
         'name',
+        'name_alias',
         'description',
         'interval',
         'interval_count',

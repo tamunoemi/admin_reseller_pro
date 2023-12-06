@@ -10,4 +10,10 @@ class PaddleCustomersModel extends Model
     use HasFactory;
     protected $table='customers'; //very important
     public $timestamps = false; //very important
+
+    protected $fillable = [
+        'billable_id',
+        'billable_type',
+        'trial_ends_at'
+    ];
 }

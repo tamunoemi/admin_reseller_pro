@@ -34,6 +34,7 @@ class EditPlanRequest extends FormRequest
     {
         return [
             'name'=>'required',
+            'name_alias'=>'required',
             'role_ids'=>'required',
             'price'=>'required',
             'description'=>'required',

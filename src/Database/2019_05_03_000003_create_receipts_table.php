@@ -24,7 +24,7 @@ class CreateReceiptsTable extends Migration
             $table->integer('quantity');
             $table->string('receipt_url')->unique();
             $table->timestamp('paid_at');
-            $table->timestamps();
+      
 
             $table->index(['billable_id', 'billable_type']);
         });

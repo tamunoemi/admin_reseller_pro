@@ -40,6 +40,8 @@ use Teckipro\Admin\Domains\Plans\Http\Controllers\FeaturesController;
 
 use Teckipro\Admin\Domains\Tests\Plans as TestPlans;
 use Teckipro\Admin\Domains\Tests\Stripe as StripeTest;
+
+use Teckipro\Admin\Domains\PaymentGateways\Stripe\Http\Controller\StripeWebhook;
 /*
  * Backend Routes
  */
@@ -106,7 +108,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware'=>['web','admin'
                 $trail->parent('admin.paddle.customers')
                     ->push(__('Saas Subscriptions'), route('admin.paddle.customers'));
             });
-
 
 
           });
@@ -603,9 +604,14 @@ Route::middleware("web")->group(function () {
 
     Route::get('site/pricing', [PlanController::class, 'pricinglist'])->name('site.pricing');
     Route::post('site/pricing/review', [PlanController::class, 'reviewSubscription'])->name("plans.reviewsubscription");
-    Route::get('site/pricing/plan/paddle/paylink/{planId}/{type}',[PlanController::class, 'getPaddlePayLink'])->name("plans.paddle.paylink");
+    Route::get('site/pricing/subscription/success', [PlanController::class, 'subscription_success'])->name("subscriptionsuccess");
 
-    Route::post('site/pricing/subscription', [StripeSubscriptionController::class, 'subscription'])->name("subscription.create");
+    Route::post('stripe/customwebhook', [StripeWebhook::class, 'webhook'])->name("stripewebhook");
+
+    Route::get('stripe/test', [StripeWebhook::class, 'test']);
+    Route::post('stripe/subscription/create', [StripeSubscriptionController::class, 'createSubscription'])->name('stripe.subscription.create');
+
+    Route::post('paddle/revieworder', [PaddleController::class, 'revieworder'])->name('paddle.revieworder');
 
 
 });

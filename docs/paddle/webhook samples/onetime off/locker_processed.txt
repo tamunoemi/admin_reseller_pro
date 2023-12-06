@@ -1,0 +1,17 @@
+alert_id	7658481
+alert_name	locker_processed
+checkout_id	1831979-chre043ab9aaa2e-bc3e311de0
+checkout_recovery	0
+coupon	no value
+custom_data	no value
+download	https://app.kiire.ai
+email	admin@admin.com
+event_time	2023-12-01 08:41:55
+instructions	Download your products by clicking the "Download" button.<br /><br />If you need any help, or assistance we'd be happy to help. Just reply to this email.
+licence	no value
+marketing_consent	0
+order_id	798315
+p_signature	4KDdDNczy954cJGEVHcoyR4OgKTagr3jbqoBdCXk6TX+t6p17zAFknEISy+mM+rxiBasW3m9BBmJxO2YEjbuX4jGCIj9KZlstTUI87lPxHMcjdI0wUa7PwWVE40hbYZNRUAMrW4CtTi4Xiuxaw1Mg/NIoC131L1VlLO0aS4OpE/stb3n4eHREIAF2usIuntFgILCZxDXtI0EGp0qpksoY9584VWHzhUSuW5gbFz6CSpwPPguPRV+R3uqcAmtKif5RJPaing0YH6UVkTcZ6+FMiMK+w3Ga3QjepEL/DGoywKgrsqGa+6hIb+GPlW+vEVEEHdiccGv6lz8jBs+0r49y08JxFXtDX8brSl4G6PJpS8DCWkmSmXeXIN8z09liYfhxJOt9qwpj2Cg7WyBTKiAJ+rvWMTryxyXQDixi2Tcj6F5HoRJyLiR9cNKVMPAZ6pIZrGVubv6zSQGcPGW3u/uQIAOeue5IVg++J3mIYTIz/PdBE1dVoep7GsrDt+dFzsyf5oh//rBggjYhPM+LD9yPrgW+NcOEKlxkuimrqyUc1srmmjjjyvSlCaX8neZX/UL2bKf2grYz1vU0vicvoE7Q+Bm1a29dVmgDmI0UcAEtAhxmHNPx8Y+ZK/Dp1TZzEn1bhABkqAi0vYasOMr/wnWbL7op69YFAlSwA6pXq96lSw=
+product_id	44874
+quantity	1
+source	localhost:8031 / localhost:8031

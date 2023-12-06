@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class LaunchSubscriptionModel extends Model
 {
     use HasFactory;
-    protected $table='launch_subscriptions'; //very important
+    protected $table='base_subscriptions'; //very important
     public $timestamps = true; //very important
 
     public const TYPE_JVZOO = 'jvzoo';

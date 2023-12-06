@@ -1,0 +1,13 @@
+
+The name of a subscription or payment passed to either
+paddle or stripe newSubscription method is directly taken from
+the plans database table.
+
+VERY IMPORTANT
+
+The plan name from the database table plans must fulfil the following criterias:
+(1). Must not contain spaces and
+(2) it should never be changed.
+(3) It is the first argument passed to the newSubscription method of both stripe and paddle.
+
+

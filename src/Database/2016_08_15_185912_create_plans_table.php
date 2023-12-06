@@ -14,7 +14,8 @@ class CreatePlansTable extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->comment("must not have spaces, cannot be changed and only used internally. It is not shown to users.");
+            $table->string('name_alias')->comment("The name in a format that will be shown to users.");
             $table->text('description')->nullable();
 
 

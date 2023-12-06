@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Good pricing pages
+ * https://codepen.io/vetrisuriya/pen/mdLxxQx
+ * https://codepen.io/vetrisuriya/pen/PoyZzRB
+ */
 namespace Teckipro\Admin\Domains\PaymentGateways\Paddle\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
@@ -12,12 +16,15 @@ use Teckipro\Admin\Models\PaddleCustomersModel;
 use Teckipro\Admin\Traits\PaddleTrait;
 use Teckipro\Admin\Traits\EnvTrait;
 use Illuminate\Support\Facades\Validator;
+use Log;
+use Teckipro\Admin\Domains\Plans\Http\Controllers\PlanController;
+use Teckipro\Admin\Domains\Plans\Trait\PlanTrait;
 
 
 class PaddleController
 {
 
-    use PaddleTrait,EnvTrait;
+    use PaddleTrait,EnvTrait,PlanTrait;
 
     public $paddlemodel;
     public $receiptModel;
@@ -71,6 +78,99 @@ class PaddleController
         throw $th;
        }
     }
+
+
+    public function revieworder(Request $request){
+        /**
+         * There are three types of plans that can be sold.
+         * - Monthly
+         * - Yearly
+         * - One time purchase
+         *
+         * If the pricingtype is on, they it means that yearly plan was selected
+         * otherwise it means that monthly plan was selected.
+         */
+        try {
+          
+       
+
+            $selected_plan_type = $request['selected_plan_type'];
+            if(!isset($selected_plan_type)){
+                abort(400,'Unsupported request format received.');
+            }
+ 
+            $plan_id = $request->input('plan_id');
+            $pricingtype = '';
+            $pricing_type_formatted_text = '';
+
+            if($selected_plan_type=='monthly'){
+                $pricing_type_formatted_text = 'Per month';
+                $pricingtype = 'per_month';
+
+            }elseif ($selected_plan_type=='yearly') {
+                $pricingtype = 'per_year';
+                $pricing_type_formatted_text = 'Per Year';
+            }elseif ($selected_plan_type=='one-time-purchase') {
+                $pricingtype = 'one_time_purchase';
+                $pricing_type_formatted_text = 'One time purchase ';
+            }
+
+            //check that this plan has price set and features
+            $details = $this->getPlanDetailsById($plan_id)[0];
+            $plan_name=$details['name'];
+            $price = $details['price'][$pricingtype];
+
+            //add the price to the formatted text
+            $pricing_type_formatted_text = $pricing_type_formatted_text;
+
+            //if(empty($price)){ return back()->with('error','This product price is missing. Cannot be sold.'); }
+
+
+            /**
+             * Get the paddle id and stripe id 
+             */
+
+            $paddle_id = "";
+            if($pricingtype=='per_month'){
+                $paddle_id = $details['paddle_id']['monthly'];
+            }elseif($pricingtype=='per_year'){
+                $paddle_id = $details['paddle_id']['yearly'];
+            }elseif($pricingtype=='one_time_purchase'){
+               $paddle_id = $details['paddle_id']['one_time_purchase'];
+            }
+
+            //Generate payment link for paddle
+            $paddle_payLink = "";
+            if(empty($paddle_id)):
+               abort(404);
+            endif;
+
+            $paddle_payLink = $request->user()->newSubscription($plan_name, $premium = $paddle_id)
+            ->returnTo(route('subscriptionsuccess'))
+            ->withMetadata(['appname' => env('APP_NAME'),'domain'=>$request->host])
+            ->create();
+           
+
+            return view("teckiproadmin::checkout/paddle/checkout")
+            ->withDetails($details)
+            ->withPricingtype($pricingtype)
+            ->withRealPrice($price)
+            ->withPaddlePayLink($paddle_payLink)
+            ->withPriceTypeFormatted($pricing_type_formatted_text)
+   
+            ;
+ 
+   
+
+
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+
+
+    }
+
+ 
 
 
 }

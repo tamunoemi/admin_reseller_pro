@@ -1,0 +1,3 @@
+
+The price entered in the database table plans must be same as the price of the
+product on either stripe or paddle.

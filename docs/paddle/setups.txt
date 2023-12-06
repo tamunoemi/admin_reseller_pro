@@ -1,0 +1,16 @@
+For paddle to work, ensure that
+
+1. CASHIER_PATH=paddle is set in the .env
+
+2. On paddle event page, ensure webhook is set with endpoint paddle/webhook.
+You can set it up here https://vendors.paddle.com/alerts-webhooks
+
+3. When creating a subscription plan here https://vendors.paddle.com/subscriptions/plans,
+since paddle does not provide a grouping option for plans created to be tagged or categorized,
+ensure to use the format APPNAME_PLANNAME.
+
+With the app name, one can figure out the plans that belongs to a particular app using api
+
+4. Paddle only supports 5 endpoints, thus the primary endpoint is 
+basically setup to repost the webhooks coming from paddle to the list of registered app endpoints
+

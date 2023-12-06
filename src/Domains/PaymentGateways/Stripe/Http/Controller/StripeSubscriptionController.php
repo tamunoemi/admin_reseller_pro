@@ -109,4 +109,22 @@ class StripeSubscriptionController
     }
 
 
+    public function createSubscription(Request $request){
+        dd($request->all());
+        $name = $request->input('name');
+        $token = $request->input('token');
+        $plan = $request->input('plan');
+
+        $response = $request->user()->newStripeSubscription(
+            'primary', 'price_1OJYh6D4TuPSjCa7p3g7mLav'
+        )->create($token, [
+            'email' => $request->user()->email,
+        ], [
+            'metadata' => ['appname' => config('my_config.app_name'),'user_id'=>$request->user()->id],
+        ]);
+
+        dd($response);
+    }
+
+
 }

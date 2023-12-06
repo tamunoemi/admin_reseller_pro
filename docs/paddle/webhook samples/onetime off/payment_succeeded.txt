@@ -1,0 +1,30 @@
+alert_id	7658480
+alert_name	payment_succeeded
+balance_currency	USD
+balance_earnings	84.88
+balance_fee	5.35
+balance_gross	97
+balance_tax	6.77
+checkout_id	1831979-chre043ab9aaa2e-bc3e311de0
+country	NG
+coupon	no value
+currency	USD
+custom_data	no value
+customer_name	John Doe
+earnings	84.88
+email	admin@admin.com
+event_time	2023-12-01 08:41:53
+fee	5.35
+ip	no value
+marketing_consent	0
+order_id	798315
+p_signature	VbYWOzVvQnHmkHj7ZABHe2S25yXdF2sUR9rs9Tx9o2xzpLEFoqrTnv41dIlmlETyRrXLC9Cl7p2RbowOwyr8M/bKlm74CzNYmOaGkaeA7XAwkTggVS60kKQxI+FjoD3yNtk+kj4UtUIaTEVfBkqDylI1dOVV7KvJYo5h0vp7ZGzKM9/q9BLOf7okUQovcwbzx0PQGfxX68vMDauiJSD53jhZs0G1l2uX+UV3Yx8appqEvOQtv6QvC6YS58hlvndw9BOePhG521gIqKWlmnwOFiZs60oRqfuW4NTzVfNWjSEPEY8B71isSk01rmqEBQ5zb4yw3u/8qI3ivRnK/B12NCiIZs4vLMnumHU6Ivd1OfNbfPX7BN2U0IUFaYViB2Ds1b7AcYvc/nI7UeSZmUQIHHvqb7hOetS9gimmyMls5OTZ6ang+p9GD1Oo8SlnfKgeZONXM8EDrSAFJ7E91i/VSmZeReWt94ZPrsQeB7Rku5oZBdtFnXaXgsg50ZbVmTBpgQrX+1nAyJ6y0+TIHfismAfFWyKrBPSDPuSNX5oqlx9R0Hbcbdx7jUkxandwIc5wQwnJjA4MCDd/G/mJAY9U6fF0UvQ4pPq25GahUhr2PVF4oR0DdTDgDpRJaG1z0j1+OCK0dlumuFDVNW8INHsWIbHggytceSaqSU3Oa1qexBI=
+passthrough	{"appname":"TeckiproBackend","domain":null,"subscription_name":"default","billable_id":1,"billable_type":"Teckipro\\Admin\\Models\\User"}
+payment_method	card
+payment_tax	6.77
+product_id	44874
+product_name	FE product
+quantity	1
+receipt_url	http://sandbox-my.paddle.com/receipt/798315/1831979-chre043ab9aaa2e-bc3e311de0
+sale_gross	97
+used_price_override	1

@@ -3,6 +3,7 @@
 namespace Teckipro\Admin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Closure;
 
 class StorePlanRequest extends FormRequest
 {
@@ -31,7 +32,17 @@ class StorePlanRequest extends FormRequest
     public function rules()
     {
         return [
-         'name'=>'required|unique:plans|max:255',
+         'name'=>[
+            'required',
+            'unique:plans',
+            'max:255',
+         function (string $attribute, mixed $value, Closure $fail) {
+            if (!preg_match('/^\S*$/u', $value)) {
+                $fail("The {$attribute} is invalid.Spacing not allowed");
+            }
+        }
+        ],
+         'name_alias'=>'required',
          'role_ids'=>'required',
          'price'=>'required',
          'description'=>'required',

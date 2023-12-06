@@ -30,10 +30,13 @@ use Illuminate\Support\Facades\Validator;
 use Str;
 use Illuminate\Support\Facades\Cache;
 use DB;
+use Teckipro\Admin\Models\StripePricingTableModel;
+use Teckipro\Admin\Domains\Plans\Trait\PlanTrait;
+
 
 class PlanController extends Controller{
 
-    use PlanMethod,EnvTrait;
+    use PlanMethod,EnvTrait,PlanTrait;
 
     public $operationReport;
 
@@ -78,9 +81,66 @@ class PlanController extends Controller{
 
     public function pricinglist()
     {
-        $plans = $this->fetchPlanListing();
-        return view("teckiproadmin::site/plans/pricing")->withPlans($plans);
+        /**
+         * Show pricing base on the default_gateway settings.
+         * Options are paddle, stripe and custom
+         */
+        
+        $default_gateway = config('my_config.default_gateway');
+
+        if($default_gateway=='paddle'){
+            $plans = $this->fetchPlanListing();
+            $collection = collect($plans);
+
+            $monthly_plans = $collection->where('paddle_id.monthly','!=','');
+            $yearly_plans = $collection->where('paddle_id.yearly','!=','');
+            $onetime_plans = $collection->where('paddle_id.one_time_purchase','!=','');
+
+            //determine default plan to show
+            $default_plan = 'm';
+            if($yearly_plans->isEmpty() && $onetime_plans->isEmpty() && $monthly_plans->isNotEmpty()){
+                $default_plan = 'm';
+            }elseif($yearly_plans->isNotEmpty() && $onetime_plans->isEmpty() && $monthly_plans->isEmpty()){
+                $default_plan = 'y';
+            }elseif($yearly_plans->isEmpty() && $onetime_plans->isNotEmpty() && $monthly_plans->isEmpty()){
+                $default_plan = 'o';
+            }elseif($yearly_plans->isNotEmpty() && $onetime_plans->isNotEmpty() && $monthly_plans->isEmpty()){
+                $default_plan = 'y';
+            }elseif($yearly_plans->isNotEmpty() && $onetime_plans->isEmpty() && $monthly_plans->isNotEmpty()){
+                $default_plan = 'm';
+            }elseif($yearly_plans->isNotEmpty() && $onetime_plans->isNotEmpty() && $monthly_plans->isNotEmpty()){
+                $default_plan = 'm';
+            }elseif($yearly_plans->isEmpty() && $onetime_plans->isNotEmpty() && $monthly_plans->isNotEmpty()){
+                $default_plan = 'm';
+            }elseif($yearly_plans->isEmpty() && $onetime_plans->isEmpty() && $monthly_plans->isEmpty()){
+                abort(404);
+            }
+ 
+            return view("teckiproadmin::checkout/paddle/pricing")
+            ->withMonthlyplans($monthly_plans)
+            ->withYearlyplans($yearly_plans)
+            ->withOnetimeplans($onetime_plans)
+            ->withYearlyplanstate($yearly_plans->isEmpty() ? '0': '1')
+            ->withMonthlyplanstate($monthly_plans->isEmpty() ? '0': '1')
+            ->withOnetimeplanstate($onetime_plans->isEmpty() ? '0': '1')
+            ->withDefaultplan($default_plan)
+            ;
+        }elseif($default_gateway=='stripe'){
+           /** Fetch stripe embed pricing table from database */
+           
+           $embed = config('my_config.stripe_pricing_table');
+           if(empty($embed)){
+              abort(404);
+           }
+           return view("teckiproadmin::checkout/stripe/pricing")->withEmbed($embed);
+
+        }else{
+            abort('Invalid request');
+        }
+        
+        
     }
+
 
 
     public function fetchPlanListing(){
@@ -101,101 +161,6 @@ class PlanController extends Controller{
        return $result;
 
     }
-
-    public function getFeaturesByPlanId($planId){
-        $Planfeature = new PlanFeature();
-        $features = $Planfeature->where("plan_id",$planId)->select('code','value')->orderBy('sort_order', 'asc')->get()->toArray();
-        return $features;
-    }
-
-    public function getplanDetailsById($plan_id){
-        $plans = Plan::where('id',$plan_id)->select('id','name','description','price','discount','coupon', 'interval','interval_count','trial_period_days','stripe_id','paddle_id')->get()->toArray();
-        $result = array();
-        foreach ($plans as $key => $value) {
-            $planId = $value['id'];
-            $value['paddle_id'] = json_decode($value['paddle_id'], true);
-            $value['stripe_id'] = json_decode($value['stripe_id'], true);
-            $value['discount'] = json_decode($value['discount'], true);
-            $value['coupon'] = json_decode($value['coupon'], true);
-            $value['price'] = json_decode($value['price'], true);
-            $features = $this->getFeaturesByPlanId($planId);
-            $value['features'] = $features;
-            $result[$key] = $value;
-
-        }
-       return $result;
-    }
-
-    public function reviewSubscription(Request $request){
-
-        try {
-            //dd($request->all());
-            $selected_plan_type = $request['selected_plan_type'];
-            if(!isset($selected_plan_type)){
-                abort(400,'Unsupported request format received.');
-            }
-
-            $plan_id = $request->input('plan_id');
-            $pricingtype = '';
-            $pricing_type_formatted_text = '';
-
-            if($selected_plan_type=='monthly_yearly'){
-                $pricingtype = $request->input('pricingtype') == 'on' ? 'per_year': 'per_month';
-                if($pricingtype=='per_year'){
-                    $pricing_type_formatted_text = 'Yearly base price ';
-                }else{
-                    $pricing_type_formatted_text = 'Monthly base price ';
-                }
-
-            }elseif ($selected_plan_type=='one-time-purchase') {
-                $pricingtype = 'one_time_purchase';
-                $pricing_type_formatted_text = 'One time purchase ';
-            }
-
-            //check that this plan has price set and features
-            $details = $this->getPlanDetailsById($plan_id)[0];
-            $price = $details['price'][$pricingtype];
-
-            //add the price to the formatted text
-            $pricing_type_formatted_text = $pricing_type_formatted_text.'  '.'$'.$price;
-
-            //if(empty($details['features'])) { return back()->with('error','Product feature missing. Cannot be sold.'); }
-            //if(empty($price)){ return back()->with('error','This product price is missing. Cannot be sold.'); }
-
-            $default_payment_gateway = Config('teckiproadmin.default_subscription_gateway');
-
-
-
-            return view("teckiproadmin::site/plans/reviewplan")
-            ->withDetails($details)
-            ->withPricingtype($pricingtype)
-            ->withRealPrice($price)
-            ->withPriceFormatted($pricing_type_formatted_text)
-            ->withDefaultPaymentGateway($default_payment_gateway)
-            ;
-
-
-        } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
-        }
-
-
-    }
-
-    public function getPaddlePayLink(Request $request, $name, $paddle_id){
-        try {
-            $re = $request->user()->newPaddleSubscription('primary', $premium = 783974) ->returnTo(route('site.pricing'))
-            ->create();
-            dd($re);
-
-
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
-
-
 
 
 
@@ -463,6 +428,7 @@ class PlanController extends Controller{
         $data=array
                 (
                     'name'=>$validated['name'],
+                    'name_alias'=>$validated['name_alias'],
                     'price'=>$validated['price'],
                     'description'=>$validated['description'],
                     'trial_period_days'=>$validated['trial_period_days'],
@@ -620,9 +586,19 @@ class PlanController extends Controller{
         //dd($result);
         return $result;
 
-
-
     }
+
+
+    public function subscription_success(Request $request){
+        /**
+         * Page to show users after successful subscription
+         */
+        //dd($request->all());
+        $checkoutid = $request->input('checkout');
+        dd($checkoutid);
+    }
+
+
 
 
 

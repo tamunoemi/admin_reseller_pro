@@ -20,7 +20,7 @@ class CustomLoggerHandler extends AbstractProcessingHandler
     public function __construct($level = Logger::DEBUG, $bubble = true, $client = null)
     {
         parent::__construct($level, $bubble);
-  
+
     }
 
     public function write(LogRecord $record):void
@@ -64,34 +64,30 @@ class CustomLoggerHandler extends AbstractProcessingHandler
             'message'=>$record['message'],
             'context'=>$record['context'],
             'level'=>$level,
-            
+
             'project'=>env('APP_NAME')
         ];
         $data['ip'] = $ip;
         $data['host'] = $host;
         $data['args']=json_encode($data);
-    
-    
+
+
         try{
             $verifyssl = env('APP_ENV')=='local' ? false : true;
 
             $promise = Http::withOptions([
-                'debug' => true,
+                'debug' => false,
                 'verify'=>$verifyssl
             ])->async()->post($api_endpoint, $data);
             $promise->wait();
-            
-
-            //dd($promise);
-   
 
 
-            
+
         }catch(\Exception $e){
             dd($e->getMessage());
         }
-    
-   
-        
+
+
+
     }
 }

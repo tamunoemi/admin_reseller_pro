@@ -25,12 +25,15 @@ use Laragear\TwoFactor\TwoFactorAuthentication;
 use Laragear\TwoFactor\Contracts\TwoFactorAuthenticatable;
 
 
+//Uncomment to enable stripe
 use Laravel\Cashier\Billable as StripeBillable;
+
+//Uncomment to enable paddle
 //use Laravel\Paddle\Billable as PaddleBillable;
 
 //Laraplan packages
 use Tamunoemi\Laraplans\Contracts\PlanSubscriberInterface;
-use Tamunoemi\Laraplans\Traits\PlanSubscriber;
+use Tamunoemi\Laraplans\Traits\PlanSubscriber as CustomPlanManager;
 
 /**
  * Class User.
@@ -52,9 +55,24 @@ class User extends Authenticatable implements MustVerifyEmail,TwoFactorAuthentic
 
 
 
+    /** Uncomment to enable Stripe */
+    use  CustomPlanManager,StripeBillable {
 
-    use StripeBillable, PlanSubscriber {
+        /** Rename my custom plan package */
+        CustomPlanManager::newSubscription as  newCustomPlanSubscription;
+        CustomPlanManager::subscriptions as customPlanSubscriptions;
+        CustomPlanManager::subscription as  customPlanSubscription;
+        CustomPlanManager::subscribed as subscribedCustomPlan;
 
+        /** Paddle over stripe and custom plan */
+        StripeBillable::newSubscription insteadof CustomPlanManager;
+        StripeBillable::subscriptions insteadof CustomPlanManager;
+        StripeBillable::subscription insteadof CustomPlanManager;
+        StripeBillable::subscribed insteadof CustomPlanManager;
+
+       
+
+        /** Rename stripe functions */
         StripeBillable::newSubscription as newStripeSubscription;
         StripeBillable::subscriptions as stripeSubscriptions;
         StripeBillable::subscription as stripeSubscription;
@@ -67,28 +85,27 @@ class User extends Authenticatable implements MustVerifyEmail,TwoFactorAuthentic
         StripeBillable::charge as stripeCharge;
         StripeBillable::refund as stripeRefund;
 
-        PlanSubscriber::newSubscription insteadof StripeBillable;
-        PlanSubscriber::subscriptions insteadof StripeBillable;
-        PlanSubscriber::subscription insteadof StripeBillable;
-        PlanSubscriber::subscribed insteadof StripeBillable;
+    }
 
-        /*
-        PaddleBillable::newSubscription as  newPaddleSubscription;
-        PaddleBillable::subscriptions as paddleSubscriptions;
-        PaddleBillable::subscription as  paddleSubscription;
-        PaddleBillable::subscribed as subscribedPaddle;
+    /** Uncomment to enable paddle */
+    /*
+    use  CustomPlanManager,PaddleBillable{
 
-        PaddleBillable::onTrial insteadof StripeBillable;
-        PaddleBillable::hasExpiredTrial insteadof StripeBillable;
-        PaddleBillable::onGenericTrial insteadof StripeBillable;
-        PaddleBillable::hasExpiredGenericTrial insteadof StripeBillable;
-        PaddleBillable::trialEndsAt insteadof StripeBillable;
-        PaddleBillable::charge insteadof StripeBillable;
-        PaddleBillable::refund insteadof StripeBillable;
-        */
 
+         Rename my custom plan package 
+        CustomPlanManager::newSubscription as  newCustomPlanSubscription;
+        CustomPlanManager::subscriptions as customPlanSubscriptions;
+        CustomPlanManager::subscription as  customPlanSubscription;
+        CustomPlanManager::subscribed as subscribedCustomPlan;
+
+        Paddle over stripe and custom plan 
+        PaddleBillable::newSubscription insteadof CustomPlanManager;
+        PaddleBillable::subscriptions insteadof CustomPlanManager;
+        PaddleBillable::subscription insteadof CustomPlanManager;
+        PaddleBillable::subscribed insteadof CustomPlanManager;
 
     }
+    */
 
 
     public const TYPE_ADMIN = 'admin';

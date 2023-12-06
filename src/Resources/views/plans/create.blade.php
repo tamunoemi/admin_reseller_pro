@@ -18,6 +18,10 @@
 
    <x-slot name="body">
 
+    <x-teckiproadmin::utils.alert type="warning" dismissable="0">
+      NOTE: The plan name must not have spacing and also cannot be changed aftewards so must choose wisely.
+    </x-teckiproadmin::utils.alert>
+
     <form action="{{ route('admin.plan.create') }}" method="post">
 
              @csrf
@@ -31,19 +35,24 @@
                     </ul>
                  </div>
              @endif
-
+ 
 
              <div class="row">
-                <div class="col-md-4 col-xs-12">
+                <div class="col-md-3 col-xs-6">
 
                     <x-teckiproadmin::backend.form-group-text value="{{ old('name') }}" name="name" id="name" label="Plan Name *"></x-teckiproadmin::backend.form-group-text>
                 </div>
 
-                <div class="col-md-4 col-xs-12">
+                <div class="col-md-3 col-xs-6">
+
+                  <x-teckiproadmin::backend.form-group-text value="{{ old('name_alias') }}" name="name_alias" id="name_alias" label="Plan Name Alias *"></x-teckiproadmin::backend.form-group-text>
+              </div>
+
+                <div class="col-md-2 col-xs-6">
                     <x-teckiproadmin::backend.form-group-select selectedValue="{{ old('type') ?? $plan::TYPE_LAUNCH }}" name="type" id="type" label="Type *" :options="$planOptions"></x-teckiproadmin::backend.form-group-select>
                 </div>
 
-                <div class="col-md-4 col-xs-12">
+                <div class="col-md-4 col-xs-6">
                     @php
                       $price = !empty(old('price')) ? old('price'): $plan->default_price_json;
                     @endphp
