@@ -1,0 +1,5 @@
+Only laravel/cashier-paddle version 1.9 is supported
+as it contains the newSubscription method in 
+Laravel\Paddle\Concerns\ManagesSubscriptions.
+
+As of this writing, only this method should be installed.

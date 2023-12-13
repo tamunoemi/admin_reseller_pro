@@ -25,7 +25,7 @@ use Teckipro\Admin\Models\Package;
 use Teckipro\Admin\Models\Role;
 
 use Teckipro\Admin\Traits\PaddleTrait;
-use Teckipro\Admin\Models\Traits\Method\PackageMethod;
+use Teckipro\Admin\Models\Traits\Method\PlanMethod;
 
 
 
@@ -33,7 +33,7 @@ class AdminController
 {
 
     use PaddleTrait;
-    use PackageMethod;
+    use PlanMethod;
 
 
     /**

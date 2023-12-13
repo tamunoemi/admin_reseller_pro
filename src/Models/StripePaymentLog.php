@@ -5,10 +5,10 @@ namespace Teckipro\Admin\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StripePricingTableModel extends Model
+class StripePaymentLog extends Model
 {
     use HasFactory;
-    protected $table='stripe_pricing_table'; //very important
+    protected $table='stripe_payment_logs'; //very important
     public $timestamps = true; //very important
 
     /**
@@ -26,12 +26,11 @@ class StripePricingTableModel extends Model
     public $incrementing = true;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are not mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'user_id',
-        'embed'
-    ];
+    protected $guarded = [];
+
+  
 }

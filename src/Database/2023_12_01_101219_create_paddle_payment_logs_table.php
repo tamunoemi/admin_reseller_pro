@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('paddle_payment_logs', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->enum('refunded',['0','1'])->default('0')->nullable();
             $table->string('checkout_id');
             $table->string('order_id');
             $table->string('product_id_or_subscription_plan_id')->nullable()->nullable()->comment('This could be subscription_plan_id or product_id depending on the alert_name type of paddle webhook');
@@ -24,7 +25,9 @@ return new class extends Migration
             $table->string('alert_name');
             $table->string('country')->nullable();
             $table->text('receipt_url');
-            $table->json('payload');
+            $table->json('payload')->nullable();
+            $table->json('refund_payload')->nullable();
+
             $table->timestamps();
         });
     }

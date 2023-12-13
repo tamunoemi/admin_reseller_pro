@@ -19,8 +19,9 @@ class CreateBaseSubscriptionsTable extends Migration
                 $table->enum('type',['jvzoo','warriorplus','clickbank','custom','paddle','stripe'])->default('custom')->comment("Paddle and stripe references subscriptions and followed by the subscription_id column for tracing on their respective tables");
                 $table->integer('user_id');
                 $table->integer('package_id');
-                $table->integer('paddle_payment_logs_id')->nullable()->comment('Reference payment payload from paddle for reference purpose');
+                $table->integer('paddle_stripe_payment_logs_id')->nullable()->comment('Reference payment payload from paddle or stripe for reference purpose');
                 $table->enum('is_active',['0','1'])->default('1');
+                $table->enum('is_recurring', ['0', '1'])->default(0)->nullable();
                 $table->string('amount');
                 $table->string('name')->nullable();
                 $table->string('email')->nullable();
@@ -28,7 +29,6 @@ class CreateBaseSubscriptionsTable extends Migration
                 $table->dateTime('expires')->nullable();
                 $table->json('payment_Data')->nullable();
                 $table->string('paddle_or_stripe_subscription_id')->nullable()->comment('Paddle or stripe subscription table id');
-
                 $table->enum('is_cancelled',['0','1'])->default('0')->nullable();
                 $table->enum('is_refunded',['0','1'])->default('0')->nullable();
                 $table->enum('is_expired',['0','1'])->default('0')->nullable();

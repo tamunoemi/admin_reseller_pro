@@ -87,7 +87,7 @@ class PlanController extends Controller{
          */
         
         $default_gateway = config('my_config.default_gateway');
-
+     
         if($default_gateway=='paddle'){
             $plans = $this->fetchPlanListing();
             $collection = collect($plans);
@@ -127,12 +127,44 @@ class PlanController extends Controller{
             ;
         }elseif($default_gateway=='stripe'){
            /** Fetch stripe embed pricing table from database */
-           
-           $embed = config('my_config.stripe_pricing_table');
-           if(empty($embed)){
-              abort(404);
-           }
-           return view("teckiproadmin::checkout/stripe/pricing")->withEmbed($embed);
+        
+           $plans = $this->fetchPlanListing();
+            $collection = collect($plans);
+
+            $monthly_plans = $collection->where('stripe_id.monthly','!=','');
+            $yearly_plans = $collection->where('stripe_id.yearly','!=','');
+            $onetime_plans = $collection->where('stripe_id.one_time_purchase','!=','');
+
+            //determine default plan to show
+            $default_plan = 'm';
+            if($yearly_plans->isEmpty() && $onetime_plans->isEmpty() && $monthly_plans->isNotEmpty()){
+                $default_plan = 'm';
+            }elseif($yearly_plans->isNotEmpty() && $onetime_plans->isEmpty() && $monthly_plans->isEmpty()){
+                $default_plan = 'y';
+            }elseif($yearly_plans->isEmpty() && $onetime_plans->isNotEmpty() && $monthly_plans->isEmpty()){
+                $default_plan = 'o';
+            }elseif($yearly_plans->isNotEmpty() && $onetime_plans->isNotEmpty() && $monthly_plans->isEmpty()){
+                $default_plan = 'y';
+            }elseif($yearly_plans->isNotEmpty() && $onetime_plans->isEmpty() && $monthly_plans->isNotEmpty()){
+                $default_plan = 'm';
+            }elseif($yearly_plans->isNotEmpty() && $onetime_plans->isNotEmpty() && $monthly_plans->isNotEmpty()){
+                $default_plan = 'm';
+            }elseif($yearly_plans->isEmpty() && $onetime_plans->isNotEmpty() && $monthly_plans->isNotEmpty()){
+                $default_plan = 'm';
+            }elseif($yearly_plans->isEmpty() && $onetime_plans->isEmpty() && $monthly_plans->isEmpty()){
+                abort(404);
+            }
+ 
+            return view("teckiproadmin::checkout/stripe/pricing")
+            ->withMonthlyplans($monthly_plans)
+            ->withYearlyplans($yearly_plans)
+            ->withOnetimeplans($onetime_plans)
+            ->withYearlyplanstate($yearly_plans->isEmpty() ? '0': '1')
+            ->withMonthlyplanstate($monthly_plans->isEmpty() ? '0': '1')
+            ->withOnetimeplanstate($onetime_plans->isEmpty() ? '0': '1')
+            ->withDefaultplan($default_plan)
+            ;
+
 
         }else{
             abort('Invalid request');
@@ -355,6 +387,15 @@ class PlanController extends Controller{
         //SAAS PACKAGE OPTIONS
         $paddle_id = isset($this->request['paddle_id']) ? $this->request['paddle_id']: $this->paddle_id;
         $stripe_id = isset($this->request['stripe_id']) ? $this->request['stripe_id']: $this->stripe_id;
+
+        if(config('my_config.default_gateway')=='paddle'){
+            $stripe_id = $this->default_gateway_id_json;
+        }
+        if(config('my_config.default_gateway')=='stripe'){
+            $paddle_id = $this->default_gateway_id_json;
+        }
+        
+
 
         //laUNCH PACKAGE IDS OPTIONS
         $jvzoo_id = isset($this->request['jvzoo_id']) ? $this->request['jvzoo_id']: $this->jvzoo_id;
@@ -586,16 +627,6 @@ class PlanController extends Controller{
         //dd($result);
         return $result;
 
-    }
-
-
-    public function subscription_success(Request $request){
-        /**
-         * Page to show users after successful subscription
-         */
-        //dd($request->all());
-        $checkoutid = $request->input('checkout');
-        dd($checkoutid);
     }
 
 

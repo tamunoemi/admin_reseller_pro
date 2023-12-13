@@ -41,7 +41,7 @@ use Teckipro\Admin\Domains\Plans\Http\Controllers\FeaturesController;
 use Teckipro\Admin\Domains\Tests\Plans as TestPlans;
 use Teckipro\Admin\Domains\Tests\Stripe as StripeTest;
 
-use Teckipro\Admin\Domains\PaymentGateways\Stripe\Http\Controller\StripeWebhook;
+
 /*
  * Backend Routes
  */
@@ -567,27 +567,12 @@ Route::group([
     ], function(){
 
 
-        Route::get('test', [PlanController::class,'sortPlanByVendorId']);
-
-
-        Route::prefix('stripe')->group(function () {
-
-            Route::get('createplan', [StripeTest::class,'createPlan']);
-            Route::get('getfeatures/{id}', [StripeTest::class,'getPlanFeatures']);
-            Route::get('user/subscribe/{id}', [StripeTest::class,'subscribeUser']);
-
-        });
-
+    Route::get('test', [\Teckipro\Admin\Http\Controllers\BillingController::class,'getRefunds']);
 
 
 
 
     }); //end of test
-
-
-
-
-
 
 
 
@@ -604,14 +589,33 @@ Route::middleware("web")->group(function () {
 
     Route::get('site/pricing', [PlanController::class, 'pricinglist'])->name('site.pricing');
     Route::post('site/pricing/review', [PlanController::class, 'reviewSubscription'])->name("plans.reviewsubscription");
-    Route::get('site/pricing/subscription/success', [PlanController::class, 'subscription_success'])->name("subscriptionsuccess");
 
-    Route::post('stripe/customwebhook', [StripeWebhook::class, 'webhook'])->name("stripewebhook");
-
-    Route::get('stripe/test', [StripeWebhook::class, 'test']);
+   
     Route::post('stripe/subscription/create', [StripeSubscriptionController::class, 'createSubscription'])->name('stripe.subscription.create');
+    Route::get('site/pricing/subscription/success', [PaddleController::class, 'subscription_success'])->name("subscriptionsuccess");
+    Route::get('paddle/revieworder', [PaddleController::class, 'revieworder'])->name('paddle.revieworder');
+    Route::get('stripe/revieworder', [StripeSubscriptionController::class, 'revieworder'])->name('stripe.revieworder');
+    Route::get('stripe/order/success', [StripeSubscriptionController::class, 'ordersuccess'])->name('stripe.order.success');
 
-    Route::post('paddle/revieworder', [PaddleController::class, 'revieworder'])->name('paddle.revieworder');
+
+    //LOGIN WITH GOOGLE
+    Route::get('login/google/redirect', [Teckipro\Admin\Domains\Google\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
+    Route::get('login/google/callback', [Teckipro\Admin\Domains\Google\Http\Controllers\GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
+
+
+    /** Test */
+Route::group([
+    'prefix'=>'test',
+    'as'=>'test.'
+    ], function(){
+
+
+    Route::get('test', [\Teckipro\Admin\Http\Controllers\BillingController::class,'getRefunds']);
+
+
+
+
+    }); //end of test
 
 
 });

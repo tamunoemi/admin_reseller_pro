@@ -19,7 +19,13 @@
    <x-slot name="body">
 
     <x-teckiproadmin::utils.alert type="warning" dismissable="0">
-      NOTE: The plan name must not have spacing and also cannot be changed aftewards so must choose wisely.
+      NOTE: For payments to be recorded/reflected, the following must hold true:
+      <ol>
+      <li>The plan name must not have spacing and cannot be changed aftewards so must choose wisely.</li>
+      <li>The name of the plan must be same as what was created on {{ config('my_config.default_gateway') }}</li>
+    
+      
+      </ol> 
     </x-teckiproadmin::utils.alert>
 
     <form action="{{ route('admin.plan.create') }}" method="post">
@@ -70,13 +76,18 @@
                 $paddle_id = !empty(old('paddle_id')) ? old('paddle_id'): $plan->default_gateway_id_json;
                 $stripe_id = !empty(old('stripe_id')) ? old('stripe_id'): $plan->default_gateway_id_json;
               @endphp
+                
+                @if(config('my_config.default_gateway')=='paddle')
                 <div class="col-4">
                     <x-teckiproadmin::backend.textarea name="paddle_id" id="paddle_id" label="Paddle ID">{!! $paddle_id !!}</x-teckiproadmin::backend.textarea>
                 </div>
+                @endif
 
+                @if(config('my_config.default_gateway')=='stripe')
                 <div class="col-4">
                     <x-teckiproadmin::backend.textarea name="stripe_id" id="stripe_id" label="Stripe ID">{!! $stripe_id !!}</x-teckiproadmin::backend.textarea>
                 </div>
+                @endif
             </div>
 
 

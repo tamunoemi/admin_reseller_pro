@@ -192,11 +192,16 @@ tfoot {
                     <div class="card mb-4 border-0">
 
                         <div class="card-body">
+ 
+        
+                            @auth
+                              <x-paddle-checkout :override="$paddlePayLink" class="w-full" height="500" />
+                            @endauth
 
-         
-
-                            <x-paddle-checkout :override="$paddlePayLink" class="w-full" height="500" />
-
+                            @guest
+                            <p>You will need to create an account with us to proceed with this checkout</p>
+                            <a href="{{ route('google.redirect') }}" class="btn btn-primary"> Login with Google </a>
+                            @endguest
 
 
                         </div>

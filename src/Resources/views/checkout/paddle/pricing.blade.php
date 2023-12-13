@@ -67,7 +67,7 @@
 
 
 
-        <form id="form" action="{{ route('paddle.revieworder') }}" method="post">
+        <form id="form" action="{{ route('paddle.revieworder') }}" method="get">
             @csrf
 
             <input type="hidden" name="plan_id" id="plan_id" value="">

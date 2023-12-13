@@ -40,7 +40,7 @@
 
 
     <livewire:styles />
-    @stack('after-styles')
+   
     <script defer src="{{ asset('vendor/package-dep/js/alpine.js') }}"></script>
     <style>
         .text-right{
@@ -66,8 +66,11 @@
 
     </style>
  @stack('header-scripts')
+ @if(config('my_config.default_gateway')=='paddle')
+  @paddleJS
+ @endif
 
-@paddleJS
+ @stack('after-styles')
   </head>
 
 
@@ -95,8 +98,9 @@
   <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
+    @stack('before-scripts')
     <script src="https://themes.teckipro.com/applab/vendors/@popperjs/popper.min.js"></script>
-    <script src="https://themes.teckipro.com/applab/vendors/bootstrap/bootstrap.min.js"></script>
+
     <script src="https://themes.teckipro.com/applab/vendors/is/is.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="https://themes.teckipro.com/applab/assets/js/theme.js"></script>

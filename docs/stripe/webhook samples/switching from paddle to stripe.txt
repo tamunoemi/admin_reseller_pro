@@ -1,0 +1,42 @@
+HOW TO USE STRIPE INSTEAD OF PADDLE
+
+(1) To use stripe instead of paddle, changes are to be made to the following files
+#App\Providers\EventServiceProvider
+#App\Providers\AppServiceProvider
+#.env
+#Teckipro\Admin\Models\Users
+
+Go to each of these files, wherever you see STRIPE, "uncomment it" and 
+wherever you see PADDLE,"comment it to hide it".
+
+Basically, you deactivate any paddle related scripts in each of these files 
+and activate any stripe script.
+
+
+
+(2) ENSURE TO INSTALL STRIPE AND UNINSTALL PADDLE
+
+
+To install stripe, run 
+composer require laravel/cashier
+
+To uninstall paddle, run 
+composer remove laravel/cashier-paddle
+
+
+(3) Setup stripe webhook
+See doc here https://laravel.com/docs/10.x/billing#handling-stripe-webhooks
+
+(4) Update the .env file
+Set the following
+
+STRIPE_KEY=pk_test_BQ7e5HKfpuLCliCFbXyYdpnn
+STRIPE_SECRET=sk_test_BTOSQumOcyBjEa5iBpGkMq9Q
+STRIPE_WEBHOOK_SECRET=whsec_aYl6dENjmg3ABTNmIz0RZ0Av8s5fcbND
+CASHIER_PATH=stripe
+CASHIER_LOGGER=stack
+DEFAULT_SUBSCRIPTION_GATEWAY=stripe
+
+Replace the STRIPE_KEY, STRIPE_SECRET and STRIPE_WEBHOOK_SECRET with the right keys.
+
+NOTE that DEFAULT_SUBSCRIPTION_GATEWAY must be set to stripe

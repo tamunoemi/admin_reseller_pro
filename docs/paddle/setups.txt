@@ -14,3 +14,5 @@ With the app name, one can figure out the plans that belongs to a particular app
 4. Paddle only supports 5 endpoints, thus the primary endpoint is 
 basically setup to repost the webhooks coming from paddle to the list of registered app endpoints
 
+
+

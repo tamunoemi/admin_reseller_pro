@@ -65,13 +65,17 @@
                 $paddle_id = !empty($plan->paddle_id) ? $plan->paddle_id : $class->default_gateway_id_json;
                 $stripe_id = !empty($plan->stripe_id ) ? $plan->stripe_id : $class->default_gateway_id_json;
               @endphp
+                @if(config('my_config.default_gateway')=='paddle')
                 <div class="col-4">
                     <x-teckiproadmin::backend.textarea readonly="true" disabled="true" name="paddle_id" id="paddle_id" label="Paddle ID">{!! $paddle_id !!}</x-teckiproadmin::backend.textarea>
                 </div>
+                @endif
 
+                @if(config('my_config.default_gateway')=='stripe')
                 <div class="col-4">
                     <x-teckiproadmin::backend.textarea readonly="true" disabled="true" name="stripe_id" id="stripe_id" label="Stripe ID">{!! $stripe_id !!}</x-teckiproadmin::backend.textarea>
                 </div>
+                @endif
 
             </div>
             @endif

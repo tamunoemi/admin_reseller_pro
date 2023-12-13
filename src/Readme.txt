@@ -84,3 +84,64 @@ switch ($event->type) {
 }
 
 http_response_code(200);
+
+
+
+
+
+
+
+array:1 [▼ // packages/teckipro/admin/src/Domains/PaymentGateways/Stripe/Http/Controller/StripeSubscriptionController.php:207
+  0 => array:9 [▼
+    "id" => "pm_1OJlktD4TuPSjCa7xTLXu7YE"
+    "object" => "payment_method"
+    "billing_details" => array:4 [▼
+      "address" => array:6 [▼
+        "city" => null
+        "country" => null
+        "line1" => null
+        "line2" => null
+        "postal_code" => "50024"
+        "state" => null
+      ]
+      "email" => null
+      "name" => "Emi Robert"
+      "phone" => null
+    ]
+    "card" => array:12 [▼
+      "brand" => "mastercard"
+      "checks" => array:3 [▶]
+      "country" => "US"
+      "exp_month" => 4
+      "exp_year" => 2026
+      "fingerprint" => "9lOgUgw6b5EPef8g"
+      "funding" => "credit"
+      "generated_from" => null
+      "last4" => "4444"
+      "networks" => array:2 [▶]
+      "three_d_secure_usage" => array:1 [▶]
+      "wallet" => null
+    ]
+    "created" => 1701733251
+    "customer" => "cus_P81wKvn99sN4aT"
+    "livemode" => false
+    "metadata" => []
+    "type" => "card"
+  ]
+]
+
+
+
+
+
+
+<div class="col-xl-12 col-lg-12">
+    <hr>
+    <button type="submit" class="btn btn-primary" id="card-button" data-secret="{{ $intent->client_secret }}">Purchase</button>
+  </div>
+  
+
+ 
+<button id="card-button" data-secret="{{ $intent->client_secret }}">
+    Update Payment Method
+</button>

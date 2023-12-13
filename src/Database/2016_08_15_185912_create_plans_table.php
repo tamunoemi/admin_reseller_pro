@@ -17,7 +17,7 @@ class CreatePlansTable extends Migration
             $table->string('name')->comment("must not have spaces, cannot be changed and only used internally. It is not shown to users.");
             $table->string('name_alias')->comment("The name in a format that will be shown to users.");
             $table->text('description')->nullable();
-
+ 
 
             $table->json('price')->comment("Json prices in the format {per_month:'', per_year: ''}");
 

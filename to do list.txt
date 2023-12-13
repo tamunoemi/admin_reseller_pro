@@ -1,0 +1,5 @@
+
+1. Manually triggering refunds
+2. Add coupons, discount automatically if available
+3. For paddle, update customers table to hold email and marketing consent approval
+4. Refund for paddle one-off[product] payment not captured.

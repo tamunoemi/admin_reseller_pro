@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Validator;
 use Log;
 use Teckipro\Admin\Domains\Plans\Http\Controllers\PlanController;
 use Teckipro\Admin\Domains\Plans\Trait\PlanTrait;
+use Auth;
 
 
 class PaddleController
@@ -92,14 +93,23 @@ class PaddleController
          */
         try {
           
+            $selected_plan_type = "";
+            $plan_id = "";
        
+            if ($request->session()->exists('loginRequestOnPaddlePaymentOrderPage')) {
+                $input = session()->pull('loginRequestOnPaddlePaymentOrderPage');
+                $plan_id = $input['plan_id'];
+                $selected_plan_type = $input['selected_plan_type'];
+            }else{
+                $selected_plan_type = $request['selected_plan_type'];
+                $plan_id = $request->input('plan_id');
+            }
 
-            $selected_plan_type = $request['selected_plan_type'];
             if(!isset($selected_plan_type)){
                 abort(400,'Unsupported request format received.');
             }
+
  
-            $plan_id = $request->input('plan_id');
             $pricingtype = '';
             $pricing_type_formatted_text = '';
 
@@ -110,13 +120,16 @@ class PaddleController
             }elseif ($selected_plan_type=='yearly') {
                 $pricingtype = 'per_year';
                 $pricing_type_formatted_text = 'Per Year';
-            }elseif ($selected_plan_type=='one-time-purchase') {
+            }elseif ($selected_plan_type=='one-time') {
                 $pricingtype = 'one_time_purchase';
                 $pricing_type_formatted_text = 'One time purchase ';
+            }else{
+                abort(404);
             }
 
             //check that this plan has price set and features
             $details = $this->getPlanDetailsById($plan_id)[0];
+            
             $plan_name=$details['name'];
             $price = $details['price'][$pricingtype];
 
@@ -124,8 +137,8 @@ class PaddleController
             $pricing_type_formatted_text = $pricing_type_formatted_text;
 
             //if(empty($price)){ return back()->with('error','This product price is missing. Cannot be sold.'); }
-
-
+ 
+             
             /**
              * Get the paddle id and stripe id 
              */
@@ -145,10 +158,41 @@ class PaddleController
                abort(404);
             endif;
 
-            $paddle_payLink = $request->user()->newSubscription($plan_name, $premium = $paddle_id)
-            ->returnTo(route('subscriptionsuccess'))
-            ->withMetadata(['appname' => env('APP_NAME'),'domain'=>$request->host])
-            ->create();
+
+            if (Auth::check()) {
+
+            if($selected_plan_type=='yearly' || $selected_plan_type=='monthly'){
+            
+                $paddle_payLink = $request->user()->newSubscription($plan_name, $premium = $paddle_id)
+                ->returnTo(route('subscriptionsuccess'))
+                ->withMetadata([
+                        'appname' => config('my_config.app_name'),
+                        'plan_name'=>$plan_name,
+                        'user_id'=>$request->user()->id,
+                        'email'=>$request->user()->email
+                        ])
+                ->create();
+
+            }else{
+                /** It's a one-time payment
+                 * Charge this product
+                 *  Reference: https://laravel.com/docs/10.x/cashier-paddle#charging-products
+                 */
+                $paddle_payLink = $request->user()->chargeProduct($paddle_id,[
+                    'appname' => config('my_config.app_name'),
+                    'plan_name'=>$plan_name,
+                    'user_id'=>$request->user()->id,
+                    'email'=>$request->user()->email
+                  ]);
+            } 
+
+            }else{
+
+                session(['loginRequestOnPaddlePaymentOrderPage' => [
+                    'plan_id'=>$plan_id,
+                    'selected_plan_type'=>$selected_plan_type
+                ]]);
+            }
            
 
             return view("teckiproadmin::checkout/paddle/checkout")
@@ -170,7 +214,23 @@ class PaddleController
 
     }
 
- 
+
+
+    public function subscription_success(Request $request){
+        try {
+            /**
+             * Page to show users after successful subscription
+             */
+            //dd($request->all());
+            $checkoutid = $request->input('checkout');
+            //dd($checkoutid); 
+            return view("teckiproadmin::checkout/paddle/success");
+        } catch (\Throwable $th) {
+            //throw $th;
+            abort(404);
+        }
+
+    }
 
 
 }

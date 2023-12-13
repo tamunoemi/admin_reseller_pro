@@ -3,9 +3,8 @@
 namespace Teckipro\Admin\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class LaunchSubscriptions extends Controller
+class LaunchSubscriptions
 {
     /**
      * Display a listing of the resource.

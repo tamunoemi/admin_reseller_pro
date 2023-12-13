@@ -146,7 +146,7 @@ trait PlanMethod
          }
 
 
-         $packageSubscribedUsers = DB::table('launch_subscriptions')->where('package_id',$package_id)->get();
+         $packageSubscribedUsers = DB::table('base_subscriptions')->where('package_id',$package_id)->get();
          if(!empty($packageSubscribedUsers)){
             foreach($packageSubscribedUsers as $packageSubscribedUser){
                 $user_id = $packageSubscribedUser->user_id;

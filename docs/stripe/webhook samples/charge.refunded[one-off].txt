@@ -1,0 +1,130 @@
+{
+    "id": "evt_3OM57RD4TuPSjCa71kitlwYo",
+    "object": "event",
+    "api_version": "2022-11-15",
+    "created": 1702286760,
+    "data": {
+        "object": {
+            "id": "ch_3OM57RD4TuPSjCa718DP36IT",
+            "object": "charge",
+            "amount": 4900,
+            "amount_captured": 4900,
+            "amount_refunded": 4900,
+            "application": null,
+            "application_fee": null,
+            "application_fee_amount": null,
+            "balance_transaction": "txn_3OM57RD4TuPSjCa71fR7Vmzc",
+            "billing_details": {
+                "address": {
+                    "city": null,
+                    "country": null,
+                    "line1": null,
+                    "line2": null,
+                    "postal_code": "50024",
+                    "state": null
+                },
+                "email": null,
+                "name": "Tamunoemi Robert (Robert Emi)",
+                "phone": null
+            },
+            "calculated_statement_descriptor": "Stripe",
+            "captured": true,
+            "created": 1702284341,
+            "currency": "usd",
+            "customer": "cus_P9nyzKCURse9Gq",
+            "description": null,
+            "destination": null,
+            "dispute": null,
+            "disputed": false,
+            "failure_balance_transaction": null,
+            "failure_code": null,
+            "failure_message": null,
+            "fraud_details": {},
+            "invoice": null,
+            "livemode": false,
+            "metadata": {
+                "plan_name": "Basic",
+                "user_id": "8",
+                "email": "rtamunoemi@gmail.com",
+                "appname": "TeckiproBackend"
+            },
+            "on_behalf_of": null,
+            "order": null,
+            "outcome": {
+                "network_status": "approved_by_network",
+                "reason": null,
+                "risk_level": "normal",
+                "risk_score": 46,
+                "seller_message": "Payment complete.",
+                "type": "authorized"
+            },
+            "paid": true,
+            "payment_intent": "pi_3OM57RD4TuPSjCa71NslXsd8",
+            "payment_method": "pm_1OM57ND4TuPSjCa7kfrJk3jt",
+            "payment_method_details": {
+                "card": {
+                    "amount_authorized": 4900,
+                    "brand": "mastercard",
+                    "checks": {
+                        "address_line1_check": null,
+                        "address_postal_code_check": "pass",
+                        "cvc_check": "pass"
+                    },
+                    "country": "US",
+                    "exp_month": 1,
+                    "exp_year": 2026,
+                    "extended_authorization": {
+                        "status": "disabled"
+                    },
+                    "fingerprint": "9lOgUgw6b5EPef8g",
+                    "funding": "credit",
+                    "incremental_authorization": {
+                        "status": "unavailable"
+                    },
+                    "installments": null,
+                    "last4": "4444",
+                    "mandate": null,
+                    "multicapture": {
+                        "status": "unavailable"
+                    },
+                    "network": "mastercard",
+                    "network_token": {
+                        "used": false
+                    },
+                    "overcapture": {
+                        "maximum_amount_capturable": 4900,
+                        "status": "unavailable"
+                    },
+                    "three_d_secure": null,
+                    "wallet": null
+                },
+                "type": "card"
+            },
+            "receipt_email": null,
+            "receipt_number": null,
+            "receipt_url": "https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xRHNMVEFENFR1UFNqQ2E3KKir26sGMgaVmLeoGx86LBa7jzFXfrKI5we943nLtEoZXrScmkFQyMKSpxIrEORyfsq_xbbzq52O-prD",
+            "refunded": true,
+            "review": null,
+            "shipping": null,
+            "source": null,
+            "source_transfer": null,
+            "statement_descriptor": null,
+            "statement_descriptor_suffix": null,
+            "status": "succeeded",
+            "transfer_data": null,
+            "transfer_group": null
+        },
+        "previous_attributes": {
+            "amount_refunded": 0,
+            "receipt_url": "https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xRHNMVEFENFR1UFNqQ2E3KKer26sGMgb8Q-g1G3U6LBYoVXRaUUgSOr6iTjAwKGluy0bHqzvShvnQr5z7lGqoOKHPpK4IBGuumxPN",
+            "refunded": false
+        }
+    },
+    "livemode": false,
+    "pending_webhooks": 1,
+    "request": {
+        "id": "req_jXQKQtiS4XQ0Ru",
+        "idempotency_key": "e341596c-8a81-4460-bd6b-2a55d19ae0d0"
+    },
+    "type": "charge.refunded"
+}

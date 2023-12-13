@@ -26,33 +26,3 @@
 
 
 
-@push('after-scripts')
-{{--
-
- <script>
-
- $(document).on('click','#paddle-pay-button',function(){
-
-    Paddle.Checkout.open({
-      product: '{{ $paddle_id }}',
-      title: '{{ $details['name'] }}',
-      marketingConsent: '1',
-      allowQuantity:false,
-      displayModeTheme: 'light',
-      method: 'overlay',
-      passthrough: {{ Illuminate\Support\Js::from($details) }},
-      success: '{{ route('subscriptionsuccess') }}',
-      successCallback: function(response){
-       console.log(response)
-      }
-
-   });
-
-
-})
-
- </script>
-   --}}
-
-
-@endpush

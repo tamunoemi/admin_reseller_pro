@@ -47,25 +47,10 @@ class LaunchSubscriptionModel extends Model
      */
     public $incrementing = true;
 
-    /**
-     * The attributes that are mass assignable.
+        /**
+     * The attributes that are not mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'type',
-        'user_id',
-        'package_id',
-        'is_active',
-        'amount',
-        'name',
-        'email',
-        'transactionId',
-        'expires',
-        'payment_Data',
-        'is_cancelled',
-        'is_expired',
-        'created_at',
-        'updated_at'
-    ];
+    protected $guarded = [];
 }
