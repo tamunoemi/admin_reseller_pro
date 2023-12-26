@@ -138,7 +138,8 @@ class User extends Authenticatable implements MustVerifyEmail,TwoFactorAuthentic
         'gender',
         'user_permissions',
         'brand_logo',
-        'brand_url'
+        'brand_url',
+        'uuid'
     ];
 
     /**
