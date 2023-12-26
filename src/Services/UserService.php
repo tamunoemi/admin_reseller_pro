@@ -327,6 +327,7 @@ class UserService extends BaseService
             'name' => $data['name'] ?? null,
             'email' => $data['email'] ?? null,
             'password' => $data['password'] ?? null,
+            'uuid' => \Str::uuid(),
             'provider' => $data['provider'] ?? null,
             'provider_id' => $data['provider_id'] ?? null,
             'email_verified_at' => $data['email_verified_at'] ?? null,

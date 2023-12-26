@@ -60,16 +60,7 @@ class UserEventListener
             ->log(':causer.name created user :subject.name with roles: :properties.roles and permissions: :properties.permissions');
     }
 
-    
-    /**
-     * Update the uuid field
-     */
-    public function updateUuid($event){
 
-        $event->user->update([
-            'uuid' => \Str::uuid()
-        ]);
-    }
 
     /**
      * @param $event
@@ -149,8 +140,7 @@ class UserEventListener
 
         $events->listen(
             UserCreated::class,
-            'Teckipro\Admin\Listeners\UserEventListener@onCreated',
-            'Teckipro\Admin\Listeners\UserEventListener@updateUuid'
+            'Teckipro\Admin\Listeners\UserEventListener@onCreated'
         );
 
 
