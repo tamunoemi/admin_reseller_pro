@@ -12,8 +12,6 @@
 
     @stack('before-styles')
     <link href="{{ mix('css/backend.css') }}" rel="stylesheet">
-    <link href="{{ mix('css/nprogress.css') }}" rel="stylesheet">
-    <link href="{{ mix('custom/css/app.css') }}" rel="stylesheet">
     {{-- Boostrap icon: https://icons.getbootstrap.com/?q=uploa --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
     <style>
@@ -31,7 +29,7 @@
     </style>
     <livewire:styles />
     @stack('after-styles')
-    <script defer src="{{ asset('js/alpine.js') }}"></script>
+  
 
 </head>
 
@@ -77,13 +75,15 @@
 
     @stack('before-scripts')
 
+    <livewire:scripts />
+
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/backend.js') }}"></script>
-    <livewire:scripts />
+ 
 
 
-    <script src="{{ mix('js/nprogress.js') }}"></script>
+  
 
     @stack('after-scripts')
 </body>
