@@ -5,7 +5,7 @@ namespace Teckipro\Admin\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tutorials extends Model
+class Tutorial_docs extends Model
 {
     use HasFactory;
 
