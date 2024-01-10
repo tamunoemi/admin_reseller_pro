@@ -9,7 +9,7 @@
 
         <li class="c-sidebar-nav-item">
             <x-teckiproadmin::utils.link class="c-sidebar-nav-link" :href="route('admin.dashboard')" :active="activeClass(Route::is('admin.dashboard'), 'c-active')"
-                icon="c-sidebar-nav-icon cil-speedometer" :text="__('Dashboard')" />
+                icon="c-sidebar-nav-icon cil-speedometer" :text="__('teckiproadmin::backendmenu.dashboard')" />
         </li>
 
 
@@ -21,7 +21,7 @@
                     $logged_in_user->can('admin.access.user.clear-session') ||
                     $logged_in_user->can('admin.access.user.impersonate') ||
                     $logged_in_user->can('admin.access.user.change-password')))
-            <li class="c-sidebar-nav-title">@lang('System')</li>
+            <li class="c-sidebar-nav-title">@lang('teckiproadmin::backendmenu.system')</li>
 
 
 
@@ -29,17 +29,17 @@
                 <li
                     class="c-sidebar-nav-dropdown {{ activeClass(Route::is('admin.auth.user.*') || Route::is('admin.auth.role.*'), 'c-open c-show') }}">
                     <x-teckiproadmin::utils.link href="#" icon="bi bi-gear-wide-connected"
-                        class="c-sidebar-nav-dropdown-toggle" :text="__('Settings')" />
+                        class="c-sidebar-nav-dropdown-toggle" :text="__('teckiproadmin::backendmenu.setting')" />
 
                     <ul class="c-sidebar-nav-dropdown-items">
 
                         <li class="c-sidebar-nav-item">
-                            <x-teckiproadmin::utils.link :href="route('admin.setting.index')" class="c-sidebar-nav-link" :text="__('Domain && Logo')"
+                            <x-teckiproadmin::utils.link :href="route('admin.setting.index')" class="c-sidebar-nav-link" :text="__('teckiproadmin::backendmenu.domainlogo')"
                                 :active="activeClass(Route::is('admin.setting.index'), 'c-active')" />
                         </li>
 
                         <li class="c-sidebar-nav-item">
-                            <x-teckiproadmin::utils.link :href="route('admin.setting.mail')" class="c-sidebar-nav-link" :text="__('Mail Settings')"
+                            <x-teckiproadmin::utils.link :href="route('admin.setting.mail')" class="c-sidebar-nav-link" :text="__('teckiproadmin::backendmenu.mailsettings')"
                                 :active="activeClass(Route::is('admin.setting.mail'), 'c-active')" />
                         </li>
 
@@ -47,14 +47,14 @@
 
 
                         <li class="c-sidebar-nav-item">
-                            <x-teckiproadmin::utils.link :href="route('admin.setting.webhook')" class="c-sidebar-nav-link" :text="__('Webhook URLs')"
+                            <x-teckiproadmin::utils.link :href="route('admin.setting.webhook')" class="c-sidebar-nav-link" :text="__('teckiproadmin::backendmenu.webhookurls')"
                                 :active="activeClass(Route::is('admin.setting.webhook'), 'c-active')" />
                         </li>
 
 
                    {{--
                           <li class="c-sidebar-nav-item">
-                            <x-teckiproadmin::utils.link :href="route('admin.setting.database')" class="c-sidebar-nav-link" :text="__('Database Settings')"
+                            <x-teckiproadmin::utils.link :href="route('admin.setting.database')" class="c-sidebar-nav-link" :text="__('teckiproadmin::backendmenu.databasesettings')"
                                 :active="activeClass(Route::is('admin.setting.database'), 'c-active')" />
                         </li>
 
@@ -68,7 +68,7 @@
                     <li class="c-sidebar-nav-dropdown">
 
                         <x-teckiproadmin::utils.link href="#" class="c-sidebar-nav-dropdown-toggle"
-                            :text="__('Payment Gateways')" :active="activeClass(Route::is('admin.plan.gateway.*'), 'c-active')" />
+                            :text="__('teckiproadmin::backendmenu.paymentgateways')" :active="activeClass(Route::is('admin.plan.gateway.*'), 'c-active')" />
 
 
                         <ul class="c-sidebar-nav-dropdown-items">
@@ -76,12 +76,12 @@
 
                             <li class="c-sidebar-nav-item">
                                 <x-teckiproadmin::utils.link :href="route('admin.plan.gateway.paddle')" class="c-sidebar-nav-link"
-                                    :text="__('Paddle')" :active="activeClass(Route::is('admin.plan.gateway.paddle'), 'c-active')" />
+                                    :text="__('teckiproadmin::backendmenu.paddle')" :active="activeClass(Route::is('admin.plan.gateway.paddle'), 'c-active')" />
                             </li>
 
                             <li class="c-sidebar-nav-item">
                                 <x-teckiproadmin::utils.link :href="route('admin.plan.gateway.stripe')" class="c-sidebar-nav-link"
-                                    :text="__('Stripe')" :active="activeClass(Route::is('admin.plan.gateway.stripe'), 'c-active')" />
+                                    :text="__('teckiproadmin::backendmenu.stripe')" :active="activeClass(Route::is('admin.plan.gateway.stripe'), 'c-active')" />
                             </li>
 
 
@@ -103,7 +103,7 @@
             <li
                 class="c-sidebar-nav-dropdown {{ activeClass(Route::is('admin.auth.user.*') || Route::is('admin.auth.role.*'), 'c-open c-show') }}">
                 <x-teckiproadmin::utils.link href="#" icon="c-sidebar-nav-icon cil-user"
-                    class="c-sidebar-nav-dropdown-toggle" :text="__('Access')" />
+                    class="c-sidebar-nav-dropdown-toggle" :text="__('teckiproadmin::backendmenu.access')" />
 
                 <ul class="c-sidebar-nav-dropdown-items">
                     @if (
@@ -115,7 +115,7 @@
                                 $logged_in_user->can('admin.access.user.impersonate') ||
                                 $logged_in_user->can('admin.access.user.change-password')))
                         <li class="c-sidebar-nav-item">
-                            <x-teckiproadmin::utils.link :href="route('admin.auth.user.index')" class="c-sidebar-nav-link" :text="__('User Management')"
+                            <x-teckiproadmin::utils.link :href="route('admin.auth.user.index')" class="c-sidebar-nav-link" :text="__('teckiproadmin::backendmenu.usermgt')"
                                 :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')" />
                         </li>
                     @endif
@@ -123,12 +123,12 @@
                     @if ($logged_in_user->hasAllAccess() && $logged_in_user->isMasterAdmin())
                         <li class="c-sidebar-nav-item">
                             <x-teckiproadmin::utils.link :href="route('admin.auth.role.index')" class="c-sidebar-nav-link"
-                                :text="__('Role Management')" :active="activeClass(Route::is('admin.auth.role.*'), 'c-active')" />
+                                :text="__('teckiproadmin::backendmenu.rolemanagement')" :active="activeClass(Route::is('admin.auth.role.*'), 'c-active')" />
                         </li>
 
                         <li class="c-sidebar-nav-item">
                             <x-teckiproadmin::utils.link :href="route('admin.permission.index')" class="c-sidebar-nav-link"
-                                :text="__('Permission Management')" :active="activeClass(Route::is('admin.permission.*'), 'c-active')" />
+                                :text="__('teckiproadmin::backendmenu.permissionmanagement')" :active="activeClass(Route::is('admin.permission.*'), 'c-active')" />
                         </li>
                     @endif
 
@@ -149,30 +149,30 @@
 
       <li class="c-sidebar-nav-dropdown">
           <x-teckiproadmin::utils.link href="#" icon="bi bi-tags-fill"
-              class="c-sidebar-nav-dropdown-toggle" :text="__('Plans')" />
+              class="c-sidebar-nav-dropdown-toggle" :text="__('teckiproadmin::backendmenu.plans')" />
 
               <ul class="c-sidebar-nav-dropdown-items">
 
                 <li class="c-sidebar-nav-item">
                     <x-teckiproadmin::utils.link :href="route('admin.plan.settings')" class="c-sidebar-nav-link"
-                        :text="__('Setting')" :active="activeClass(Route::is('admin.plan.settings'), 'c-active')" />
+                        :text="__('teckiproadmin::backendmenu.setting')" :active="activeClass(Route::is('admin.plan.settings'), 'c-active')" />
                 </li>
 
 
               <li class="c-sidebar-nav-item">
                 <x-teckiproadmin::utils.link :href="route('admin.plan.create')" class="c-sidebar-nav-link"
-                    :text="__('Create')" :active="activeClass(Route::is('admin.plan.create'), 'c-active')" />
+                    :text="__('teckiproadmin::backendmenu.create')" :active="activeClass(Route::is('admin.plan.create'), 'c-active')" />
             </li>
 
             <li class="c-sidebar-nav-item">
                 <x-teckiproadmin::utils.link :href="route('admin.plan.index')" class="c-sidebar-nav-link"
-                    :text="__('Manage')" :active="activeClass(Route::is('admin.plan.index'), 'c-active')" />
+                    :text="__('teckiproadmin::backendmenu.manage')" :active="activeClass(Route::is('admin.plan.index'), 'c-active')" />
             </li>
 
 
             <li class="c-sidebar-nav-item">
                 <x-teckiproadmin::utils.link :href="route('admin.plan.features.index')" class="c-sidebar-nav-link"
-                    :text="__('Features')" :active="activeClass(Route::is('admin.plan.features.index'), 'c-active')" />
+                    :text="__('teckiproadmin::backendmenu.features')" :active="activeClass(Route::is('admin.plan.features.index'), 'c-active')" />
             </li>
 
 
@@ -180,7 +180,7 @@
 
             <li class="c-sidebar-nav-item">
                 <x-teckiproadmin::utils.link :href="url('site/pricing')" target="_blank" class="c-sidebar-nav-link"
-                    :text="__('Pricing Page')" />
+                    :text="__('teckiproadmin::backendmenu.pricingpage')" />
             </li>
     </ul>
 
@@ -194,7 +194,7 @@
 
       <li class="c-sidebar-nav-dropdown">
           <x-teckiproadmin::utils.link href="#" icon="bi bi-cash"
-              class="c-sidebar-nav-dropdown-toggle" :text="__('Subscriptions')" />
+              class="c-sidebar-nav-dropdown-toggle" :text="__('teckiproadmin::backendmenu.subscriptions')" />
 
           <ul class="c-sidebar-nav-dropdown-items">
 
@@ -203,7 +203,7 @@
             @if ($logged_in_user->can('admin.plan.launch.*') && $logged_in_user->isMasterAdmin())
             <li class="c-sidebar-nav-item">
                 <x-teckiproadmin::utils.link :href="route('admin.plan.launch.index')" class="c-sidebar-nav-link"
-                    :text="__('Launches')" icon="bi bi-receipt-cutoff" :active="activeClass(Route::is('admin.plan.launch.index'), 'c-active')" />
+                    :text="__('teckiproadmin::backendmenu.launches')" icon="bi bi-receipt-cutoff" :active="activeClass(Route::is('admin.plan.launch.index'), 'c-active')" />
             </li>
             @endif
 
@@ -215,7 +215,7 @@
               <li class="c-sidebar-nav-dropdown">
 
                 <x-teckiproadmin::utils.link href="#" class="c-sidebar-nav-dropdown-toggle"
-                    :text="__('SaaS')" icon="bi bi-cash-stack" :active="activeClass(Route::is('admin.launch.*'), 'c-active')" />
+                    :text="__('teckiproadmin::backendmenu.saas')" icon="bi bi-cash-stack" :active="activeClass(Route::is('admin.launch.*'), 'c-active')" />
 
 
                 <ul class="c-sidebar-nav-dropdown-items">
@@ -224,7 +224,7 @@
                     <li class="c-sidebar-nav-dropdown">
 
                         <x-teckiproadmin::utils.link href="#" class="c-sidebar-nav-dropdown-toggle"
-                            :text="__('Stripe')" icon="bi bi-stripe" :active="activeClass(Route::is('admin.stripe.*'), 'c-active')" />
+                            :text="__('teckiproadmin::backendmenu.stripe')" icon="bi bi-stripe" :active="activeClass(Route::is('admin.stripe.*'), 'c-active')" />
 
 
                         <ul class="c-sidebar-nav-dropdown-items">
@@ -238,7 +238,7 @@
                     <li class="c-sidebar-nav-dropdown">
 
                         <x-teckiproadmin::utils.link href="#" class="c-sidebar-nav-dropdown-toggle"
-                            :text="__('Paddle')" icon="bi bi-credit-card-2-front" :active="activeClass(Route::is('admin.paddle.*'), 'c-active')" />
+                            :text="__('teckiproadmin::backendmenu.paddle')" icon="bi bi-credit-card-2-front" :active="activeClass(Route::is('admin.paddle.*'), 'c-active')" />
 
 
 
@@ -248,21 +248,21 @@
                                 <li class="c-sidebar-nav-item">
 
                                     <x-teckiproadmin::utils.link :href="route('admin.paddle.receipts')" class="c-sidebar-nav-link"
-                                        :text="__('Receipts')" :active="activeClass(Route::is('admin.paddle.receipts'), 'c-active')" />
+                                        :text="__('teckiproadmin::backendmenu.receipts')" :active="activeClass(Route::is('admin.paddle.receipts'), 'c-active')" />
 
                                 </li>
 
                                 <li class="c-sidebar-nav-item">
 
                                     <x-teckiproadmin::utils.link :href="route('admin.paddle.customers')" class="c-sidebar-nav-link"
-                                        :text="__('Customers')" :active="activeClass(Route::is('admin.paddle.customers'), 'c-active')" />
+                                        :text="__('teckiproadmin::backendmenu.customers')" :active="activeClass(Route::is('admin.paddle.customers'), 'c-active')" />
 
                                 </li>
 
 
                                 <li class="c-sidebar-nav-item">
                                     <x-teckiproadmin::utils.link :href="route('admin.paddle.index')" class="c-sidebar-nav-link"
-                                        :text="__('Subscriptions')" :active="activeClass(Route::is('admin.paddle.index'), 'c-active')" />
+                                        :text="__('teckiproadmin::backendmenu.subscriptions')" :active="activeClass(Route::is('admin.paddle.index'), 'c-active')" />
                                 </li>
 
                             </ul>
@@ -287,7 +287,7 @@
         @if ($logged_in_user->hasAllAccess())
             <li class="c-sidebar-nav-item">
                 <x-teckiproadmin::utils.link class="c-sidebar-nav-link" :href="route('admin.tutorial.index')" :active="activeClass(Route::is('admin.tutorial.index'), 'c-active')"
-                    icon="bi bi-file-slides-fill" :text="__('Tutorials')" />
+                    icon="bi bi-file-slides-fill" :text="__('teckiproadmin::backendmenu.tutorial')" />
             </li>
         @endif
 
@@ -300,17 +300,17 @@
         @if ($logged_in_user->hasAllAccess())
             <li class="c-sidebar-nav-dropdown">
                 <x-teckiproadmin::utils.link href="#" icon="bi bi-file-earmark-text-fill"
-                    class="c-sidebar-nav-dropdown-toggle" :text="__('Logs')" />
+                    class="c-sidebar-nav-dropdown-toggle" :text="__('teckiproadmin::backendmenu.logs')" />
 
                 <ul class="c-sidebar-nav-dropdown-items">
 
                     <li class="c-sidebar-nav-item">
                         <x-teckiproadmin::utils.link :href="url('log-viewer')" target="_blank" class="c-sidebar-nav-link"
-                            :text="__('Logs')" />
+                            :text="__('teckiproadmin::backendmenu.tutorial')" />
                     </li>
                     <li class="c-sidebar-nav-item">
                         <x-teckiproadmin::utils.link href="https://log-viewer.opcodes.io/docs" target="_blank"
-                            class="c-sidebar-nav-link" :text="__('Documentation')" />
+                            class="c-sidebar-nav-link" :text="__('teckiproadmin::backendmenu.documentation')" />
                     </li>
                 </ul>
             </li>
@@ -328,22 +328,22 @@
         @if ($logged_in_user->hasAllAccess())
             <li class="c-sidebar-nav-dropdown">
                 <x-teckiproadmin::utils.link href="#" icon="bi bi-filetype-php"
-                    class="c-sidebar-nav-dropdown-toggle" :text="__('Job Queues')" />
+                    class="c-sidebar-nav-dropdown-toggle" :text="__('teckiproadmin::backendmenu.jobqueues')" />
 
                 <ul class="c-sidebar-nav-dropdown-items">
 
                     <li class="c-sidebar-nav-item">
                         <x-teckiproadmin::utils.link :href="url('horizon/dashboard')" target="_blank" class="c-sidebar-nav-link"
-                            :text="__('Dashboard')" />
+                            :text="__('teckiproadmin::backendmenu.dashboard')" />
                     </li>
                     <li class="c-sidebar-nav-item">
                         <x-teckiproadmin::utils.link href="url('horizon/jobs/pending')" target="_blank"
-                            class="c-sidebar-nav-link" :text="__('Pending Jobs')" />
+                            class="c-sidebar-nav-link" :text="__('teckiproadmin::backendmenu.pendingJobs')" />
                     </li>
 
                     <li class="c-sidebar-nav-item">
                         <x-teckiproadmin::utils.link href="url('horizon/jobs/completed')" target="_blank"
-                            class="c-sidebar-nav-link" :text="__('Completed Jobs')" />
+                            class="c-sidebar-nav-link" :text="__('teckiproadmin::backendmenu.completedJobs')" />
                     </li>
                 </ul>
             </li>
@@ -362,17 +362,17 @@
             {{-- Tutorial: https://www.itsolutionstuff.com/post/laravel-file-manager-tutorial-step-by-stepexample.html --}}
             <li class="c-sidebar-nav-dropdown">
                 <x-teckiproadmin::utils.link href="#" icon="bi bi-file-earmark-fill"
-                    class="c-sidebar-nav-dropdown-toggle" :text="__('File Manager')" />
+                    class="c-sidebar-nav-dropdown-toggle" :text="__('teckiproadmin::backendmenu.fileManager')" />
 
                 <ul class="c-sidebar-nav-dropdown-items">
 
                     <li class="c-sidebar-nav-item">
                         <x-teckiproadmin::utils.link :href="url('admin/filemanager')" target="_blank" class="c-sidebar-nav-link"
-                            :text="__('Dashboard')" />
+                            :text="__('teckiproadmin::backendmenu.dashboard')" />
                     </li>
                     <li class="c-sidebar-nav-item">
                         <x-teckiproadmin::utils.link href="https://github.com/alexusmai/laravel-file-manager"
-                            target="_blank" class="c-sidebar-nav-link" :text="__('Github Page')" />
+                            target="_blank" class="c-sidebar-nav-link" :text="__('teckiproadmin::backendmenu.githubPage')" />
                     </li>
                 </ul>
             </li>
@@ -384,7 +384,7 @@
         @if ($logged_in_user->hasAllAccess() && $logged_in_user->isMasterAdmin())
             <li class="c-sidebar-nav-item">
                 <x-teckiproadmin::utils.link class="c-sidebar-nav-link" :href="route('admin.announcement.index')" :active="activeClass(Route::is('admin.announcement.index'), 'c-active')"
-                    icon="bi bi-megaphone-fill" :text="__('Announcement')" />
+                    icon="bi bi-megaphone-fill" :text="__('teckiproadmin::backendmenu.announcement')" />
             </li>
         @endif
 

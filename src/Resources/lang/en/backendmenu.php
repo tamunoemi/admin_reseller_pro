@@ -1,0 +1,38 @@
+<?php 
+
+return [
+ 'tutorial'=>'Tutorials',
+ 'logs'=>'Logs',
+ 'documentation'=>'Documentation',
+ 'subscriptions'=>'Subscriptions',
+ 'customers'=>'Customers',
+ 'receipts'=>'Receipts',
+ 'dashboard'=>'Dashboard',
+ 'jobqueues'=>'Job Queues',
+ 'paddle'=>'Paddle',
+ 'pendingJobs'=>'Pending Jobs',
+ 'completedJobs'=>'Completed Jobs',
+ 'fileManager'=>'File Manager',
+ 'githubPage'=>'Github Page',
+ 'announcement'=>'Announcement',
+ 'stripe'=>'Stripe',
+ 'saas'=>'SaaS',
+ 'launches'=>'Launches',
+ 'pricingpage'=>'Pricing Page',
+ 'features'=>'Features',
+ 'manage'=>'Manage',
+ 'create'=>'Create',
+ 'setting'=>'Setting',
+ 'plans'=>'Plans',
+ 'paymentgateways'=>'Payment Gateways',
+ 'access'=>'Access',
+ 'rolemanagement'=>'Role Management',
+ 'permissionmanagement'=>'Permission Management',
+ 'usermgt'=>'User Management',
+ 'system'=>'System',
+ 'domainlogo'=>'Domain && Logo',
+ 'mailsettings'=>'Mail Settings',
+ 'webhookurls'=>'Webhook URLs',
+ 'databasesettings'=>'Database Settings'
+
+];
